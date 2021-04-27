@@ -2,25 +2,37 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      animals: ['monkey', 'turtle', 'peacock', 'crocodile', 'parrot', 'mole', 'cat'],
+      searchInput: ''
+    }
+  }
+
+
+  inputHandler = (text) => {
+    this.setState({searchInput: text})
+  }
+
+  render() {
+    const {animals} = this.state;
+    const {searchInput} = this.state;
+
+    let animalsDisplay = animals.map((e) => {
+      if (e.includes(searchInput)) {
+      return <h2>{e}</h2>
+      }
+    })
+
+    return (
+      <section className="main">
+        <input type="text" placeholder="search here..." onChange={e => this.inputHandler(e.target.value)}/>
+        {animalsDisplay}
+      </section>
+    )
+  }
 }
 
 export default App;
