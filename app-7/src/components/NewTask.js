@@ -20,9 +20,8 @@ class NewTask extends React.Component {
   }
 
   enterPress(e) {
-    if (e.keyCode === 13) {
-      this.clearInput();
-    }
+    e.preventDefault();
+    this.clearInput();
   }
 
 
@@ -30,9 +29,11 @@ class NewTask extends React.Component {
   render() {
     return (
       <div className="newtask">
-        <input type="text" value={this.state.taskInput}className="taskbar" onChange={e => this.inputHandler(e.target.value)}/>
-        <button className="addtask" onClick={() => this.clearInput()} onKeyPress={e => this.enterPress(e)}>Add</button>
-        <button className="clear" onClick={() => this.props.clearTasksFn()}>Clear List</button>
+        <form onSubmit={this.enterPress}>
+          <input type="text" value={this.state.taskInput}className="taskbar" onChange={e => this.inputHandler(e.target.value)}/>
+          <button className="addtask" onClick={() => this.clearInput()}>Add</button>
+          <button className="clear" onClick={() => this.props.clearTasksFn()}>Clear List</button>
+        </form>
       </div>
     )
   }
